@@ -1,10 +1,27 @@
-const myImage = document.querySelector('img');
+function getProject() {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
 
-fetch('http://localhost:5678/api/works')
-.then(function(response) {
-  return response.blob();
-})
-.then(function(myBlob) {
-  const objectURL = URL.createObjectURL(myBlob);
-  myImage.src = objectURL;
-});
+  fetch("http://localhost:5678/api/works", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      deleteGallery()
+      createGallery(result)
+    })
+    .catch(error => console.log('error', error));
+}
+
+function deleteGallery() {
+
+}
+
+function createGallery(projects) {
+
+}
+
+
+
+getProject()
+
