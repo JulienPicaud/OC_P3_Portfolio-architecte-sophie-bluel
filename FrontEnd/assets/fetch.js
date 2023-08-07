@@ -22,13 +22,13 @@ function deleteGallery() {
 }
 
 // On recré la gallerie
-function createGallery(param1) {
+function createGallery(projects) {
   let gallery = document.createElement('div'); 
   let portfolio = document.getElementById('portfolio')
   gallery.setAttribute('class', 'gallery');
   portfolio.appendChild(gallery)
 
-  param1.forEach((project) => {
+  projects.forEach((project) => {
     const figure = document.createElement('figure')
     const img = document.createElement('img');
     const figureCaption = document.createElement('figureCaption');
@@ -43,6 +43,6 @@ function createGallery(param1) {
 
   })
 }
-
 getProject()
+
 
