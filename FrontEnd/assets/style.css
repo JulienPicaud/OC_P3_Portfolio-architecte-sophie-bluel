@@ -186,3 +186,7 @@ footer nav ul {
 	margin: 2em
 }
 
+.filters {
+	border-radius: 15px;
+	background-color: rgba(169, 169, 169, 0.839);
+}
