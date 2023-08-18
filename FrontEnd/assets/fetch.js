@@ -11,6 +11,8 @@ function getProject() {
       console.log(result)
       deleteGallery()
       createGallery(result)
+      // insérer ici les add event listener ?
+      addEventListener(button, "click", filterObject(result))
     })
     .catch(error => console.log('error', error))
 }
@@ -22,12 +24,13 @@ function deleteGallery() {
 }
 
 
-// On recré la gallerie
+// On recré la div gallery
 function createGallery(projects) {
   let gallery = document.createElement('div');
   let portfolio = document.getElementById('portfolio')
   gallery.setAttribute('class', 'gallery');
   portfolio.appendChild(gallery)
+
   projects.forEach((project) => {
     const figure = document.createElement('figure')
     const img = document.createElement('img');
@@ -93,27 +96,36 @@ filtersButton.appendChild(resetButton)
 })
 }
 
+function filterObject(projects){
+  deleteGallery()
 
-function createFilters(filters) {  
   let gallery = document.createElement('div');
   let portfolio = document.getElementById('portfolio')
   gallery.setAttribute('class', 'gallery');
   portfolio.appendChild(gallery)
 
-  filters.forEach((filter) => {
+  projects.forEach((objets) => {
     const figure = document.createElement('figure')
     const img = document.createElement('img');
     const figureCaption = document.createElement('figureCaption');
 
-    img.src = filter.imageUrl;
-    img.alt = filter.title
-    figureCaption.textContent = filter.title;
+    img.src = objets.imageUrl;
+    img.alt = objets.title
+    figureCaption.textContent = objets.title;
 
     figure.appendChild(img)
     figure.appendChild(figureCaption)
     gallery.appendChild(figure)
 
-  })
+})
 }
+
+// 2 soucis : 
+// - Attribuer un ID différent à chaque bouton
+// - Créer une fonction qui remplit la galerie pour chaque filtre
+
+ 
+
+
 getProject()
 getCategories()
