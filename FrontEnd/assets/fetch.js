@@ -1,3 +1,4 @@
+let projectsList = []
 // cette fonction joue fetch, supprime la galerie puis en recréée une
 function getProject() {
   let requestOptions = {
@@ -11,8 +12,9 @@ function getProject() {
       console.log(result)
       deleteGallery()
       createGallery(result)
+      projectsList = result
       // insérer ici les add event listener ?
-      addEventListener(button, "click", filterObject(result))
+      //addEventListener(button, "click", filterObject(result))
     })
     .catch(error => console.log('error', error))
 }
@@ -44,7 +46,7 @@ function createGallery(projects) {
     figure.appendChild(figureCaption)
     gallery.appendChild(figure)
 
-  }) 
+  })
 
 }
 function attributeProject() {
@@ -76,27 +78,28 @@ function getCategories() {
     .catch(error => console.log('error', error))
 }
 
-function createButton(filters){
+function createButton(filters) {
 
-let filtersButton = document.getElementById('filtersButton');
+  let filtersButton = document.getElementById('filtersButton');
 
-let resetButton = document.createElement('input');
-resetButton.setAttribute('class', 'resetButton')
-resetButton.type ='button'
-resetButton.value = "Réinitialiser"
-filtersButton.appendChild(resetButton)
+  let resetButton = document.createElement('input');
+  resetButton.setAttribute('class', 'resetButton')
+  resetButton.type = 'button'
+  resetButton.value = "Réinitialiser"
+  filtersButton.appendChild(resetButton)
 
   filters.forEach((filter) => {
-  let input = document.createElement('input');
-  input.setAttribute('class', 'button')
-  filtersButton.appendChild(input)
+    let input = document.createElement('input');
+    input.setAttribute('class', 'button')
+    filtersButton.appendChild(input)
 
-  input.value = filter.name
-  input.type = 'button'
-})
+    input.value = filter.name
+    input.type = 'button'
+    //input.addevent listener filterObject(idcategory1)
+  })
 }
 
-function filterObject(projects){
+function filterObject(filter) {
   deleteGallery()
 
   let gallery = document.createElement('div');
@@ -104,7 +107,7 @@ function filterObject(projects){
   gallery.setAttribute('class', 'gallery');
   portfolio.appendChild(gallery)
 
-  projects.forEach((objets) => {
+  projectsList.filter(p => p.category.id === filter).forEach((objets) => {
     const figure = document.createElement('figure')
     const img = document.createElement('img');
     const figureCaption = document.createElement('figureCaption');
@@ -117,14 +120,14 @@ function filterObject(projects){
     figure.appendChild(figureCaption)
     gallery.appendChild(figure)
 
-})
+  })
 }
 
 // 2 soucis : 
-// - Attribuer un ID différent à chaque bouton
+// - Attribuer un ID différent à chaque bouton mettre l'id en param
 // - Créer une fonction qui remplit la galerie pour chaque filtre
 
- 
+
 
 
 getProject()
