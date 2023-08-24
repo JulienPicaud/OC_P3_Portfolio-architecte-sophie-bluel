@@ -1,11 +1,11 @@
 let projectsList = []
+
+let requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
 // cette fonction joue fetch, supprime la galerie puis en recréée une
 function getProject() {
-  let requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-
   fetch("http://localhost:5678/api/works", requestOptions)
     .then(response => response.json())
     .then((result) => {
@@ -61,10 +61,6 @@ function attributeProject() {
 
 function getCategories() {
   // Fetch les categories sur l'API
-  let requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
 
   fetch("http://localhost:5678/api/categories", requestOptions)
     .then(response => response.json())
