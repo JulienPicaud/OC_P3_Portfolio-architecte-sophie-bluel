@@ -17,10 +17,10 @@
 </head>
 
 <body>
-	<div class="blackBloc">
+	<div class="blackBloc" id="blackBanner" style="display: none">
 		<i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i>
 		<div class="buttonEdition">Mode édition</div>
-		<button class="publierLesChangements" >Publier les changements</button>
+		<button class="publierLesChangements">Publier les changements</button>
 	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -51,6 +51,20 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
+			<a href="#modal1" class="boxModal">Modifier</a>
+
+			<!-- MODAL -->
+			<aside id="modal1" class="modal" aria-hidden="true" style="display:none">
+				<div class="modal-wrapper modalPropagation">
+					<button class="close">&times;</button>
+					<p>Galerie Photo</p>
+					<div class="allProject">
+					</div>
+					<input type="submit" value="Envoyer">
+				</div>
+			</aside>
+			<!-- FIN MODAL -->
+			
 			<div id="filtersButton">
 			</div>
 			<div class="gallery">
@@ -114,7 +128,9 @@
 			</form>
 		</section>
 
+		<script src="assets/Modal.js"></script>
 		<script src="assets/Filters.js"></script>
+
 
 	</main>
 

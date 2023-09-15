@@ -6,7 +6,6 @@ connectButton.addEventListener('click', (e) => {
     console.log(myEmail.value)
     console.log(myPassword.value)
 
-    /////////////////////FETCH PERSO///////
     const payload = {
         email: myEmail.value,
         password: myPassword.value
@@ -19,26 +18,40 @@ connectButton.addEventListener('click', (e) => {
         },
         body: JSON.stringify(payload),
 
-        //redirect: 'follow'
     };
     fetch("http://localhost:5678/api/users/login", requestOptions)
         .then(response => {
-            if (!response.ok) {
-                throw new Error("")
+            //            if (!response.ok) {
+            //                throw new Error("")
+            //            } faut il le garder 
+            console.log(response.ok)
+            if (response.ok === true) {
+
+                window.alert('Connexion réussie!');
+                window.location.href = "index.html";
+                //homeConnect()
+            }
+            else {
+                window.alert('Login ou mot de passe incorrect')
             }
             return response.json()
         })
-        .then(result => {
-            window.location.href = "index.html"
-            console.log(result)
-        }) // réponse du serveur 200 rediriger sur la page d'accueil
-        .catch(error => console.log('error', error)); // sinon 404 user non trouvé
-})
-    /////////////////////FETCH PERSO///////
+        .then(result => { //result est l'objet token
 
-//console.log(result)
-// voir local storage pour stocker le token
+            console.log(result);
+            sessionStorage.setItem("userId", result.userId); //local storage a tendance à cumuler 
+            sessionStorage.setItem("token", result.token); //les infos au fur et a mesure des connexions
+            console.log(sessionStorage);
+        })
+})
+
+function homeConnect() {
+    let connectBanner = document.getElementById('blackBanner');
+    connectBanner.style.display = null;
+}
 // result -> result.body.token (a voir)
+
+// js.style.displaynone
 
 
 
