@@ -367,7 +367,7 @@ input.Connect {
 }
 
 .blackBloc {
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	background-color: black;
@@ -376,9 +376,11 @@ input.Connect {
 	margin-left: -150px;
 	max-height: 59px;
 }
+
 .fa-regular {
-margin-top: 14px;
+	margin-top: 14px;
 }
+
 .publierLesChangements {
 	border-radius: 20px;
 	padding: 10px;
@@ -391,7 +393,7 @@ margin-top: 14px;
 	color: white;
 	font-size: 20px;
 	margin: 13px 15px 0px 15px;
-	
+
 }
 
 .modal {
@@ -399,17 +401,36 @@ margin-top: 14px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	top:0;
-	left:0;
+	top: 0;
+	left: 0;
 	width: 100%;
-	height:100%;
+	height: 100%;
 	background: rgba(0, 0, 0, 0.3);
 }
+
 .modal-wrapper {
 	overflow: auto;
 	background-color: #FFF;
 	width: 600px;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vw - 20px);
-	padding:20px;
+	padding: 20px;
+}
+
+hr {
+	color: #B3B3B3;
+	width: 420px;
+	border: 1px solid #B3B3B3;
+	position: absolute;
+}
+.allProjects {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+.allProjects img {
+
+    width: 76px;
+    height: 102px;
 }

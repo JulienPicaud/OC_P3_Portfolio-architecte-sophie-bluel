@@ -13,6 +13,7 @@ function getProject() {
         .then(response => response.json())
         .then((result) => {
             projectsList = result
+            //console.log(projectsList)
             resetGallery(projectsList)
         })
         .catch(error => console.log('error', error))
@@ -49,7 +50,7 @@ function resetGallery() {
     createGallery(projectsList)
 }
 
-// On recré la div gallery
+// On recré la div gallery sur l'index.html
 function createGallery(projectsList) {
     let portfolio = document.getElementById('portfolio')
     let gallery = createMarkup('div', portfolio, { class: 'gallery' })
@@ -117,5 +118,3 @@ function filterObject(categoriesList) {
 
 getProject()
 getCategories()
-
-

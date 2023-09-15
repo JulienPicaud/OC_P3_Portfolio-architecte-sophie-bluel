@@ -1,3 +1,30 @@
+/**
+ * get all pictures
+ */
+function getNewProject() {
+    fetch("http://localhost:5678/api/works", requestOptions)
+        .then(response => response.json())
+        .then((result) => {
+            projectsList = result
+            console.log(result)
+            createGalleryModal(projectsList)
+        })
+        .catch(error => console.log('error', error))
+}
+//const poubelle = document.createElement('i')
+//poubelle.classList.add('fa-solid', 'fa-trash-can')
+
+function createGalleryModal(projectsList) {
+    let portfolio = document.querySelector('.allProjects')
+    projectsList.forEach((project) => {
+        createMarkup('img', portfolio, { src: project.imageUrl, alt: project.title });
+    })
+}
+function deleteGalleryModal(){
+    let portfolio = document.querySelector('.allProjects')
+    portfolio.innerHTML=''
+}
+
 let modal = null;
 
 const openModal = function (e) {
@@ -10,6 +37,7 @@ const openModal = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.close').addEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+    getNewProject()
 }
 
 const closeModal = function (e) {
@@ -21,8 +49,8 @@ const closeModal = function (e) {
     modal.removeEventListener('click', closeModal)
     modal.querySelector('.close').removeEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').removeEventListener('click', stopPropagation)
-
     modal = null
+    deleteGalleryModal()
 }
 
 let buttonModal = document.querySelector('.boxModal')
