@@ -4,7 +4,6 @@ let requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-
 /**
  * get all pictures and display
  */
@@ -13,11 +12,15 @@ function getProject() {
         .then(response => response.json())
         .then((result) => {
             projectsList = result
-            //console.log(projectsList)
+            let buttonModal = document.querySelector('.boxModal')
+            buttonModal.addEventListener('click', openModal)
+
+            createGalleryModal(projectsList)
             resetGallery(projectsList)
         })
         .catch(error => console.log('error', error))
 }
+
 
 /**
  * get categories and categories's data
@@ -49,6 +52,28 @@ function resetGallery() {
     deleteGallery()
     createGallery(projectsList)
 }
+/**Requete Delete 1 project gallery by using ID */
+
+let formdata = new FormData();
+formdata.append("email", "string");
+formdata.append("password", "string");
+
+let requestOptionsDelete = {
+    method: 'DELETE',
+    body: formdata,
+    redirect: 'follow'
+};
+
+function deleteProject() {
+    fetch("http://localhost:5678/api/works/{id}", requestOptionsDelete)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        document.querySelector('.fa-solid fa-trash-can').addEventListener('click', deletePicture)
+        .catch(error => console.log('error', error));
+}
+//Const deletePicture = function(e) {
+//
+//}
 
 // On recré la div gallery sur l'index.html
 function createGallery(projectsList) {
@@ -116,5 +141,78 @@ function filterObject(categoriesList) {
     })
 }
 
+/** Gère la modale 1**/
+
+const stopPropagation = function (e) {
+    e.stopPropagation()
+}
+let modal = null;
+
+const openModal = function (e) {
+    e.preventDefault()
+    const target = document.querySelector(e.target.getAttribute('href'))
+    target.style.display = null;
+    target.removeAttribute('aria-hidden')
+    target.setAttribute('aria-modal', 'true')
+    modal = target
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.close').addEventListener('click', closeModal)
+    modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+    getProject()
+
+
+}
+
+const closeModal = function (e) {
+    if (modal === null) return
+    e.preventDefault()
+    modal.style.display = "none";
+    modal.setAttribute('aria-hidden', 'true')
+    modal.removeAttribute('aria-modal')
+    modal.removeEventListener('click', closeModal)
+    modal.querySelector('.close').removeEventListener('click', closeModal)
+    modal.querySelector('.modalPropagation').removeEventListener('click', stopPropagation)
+    modal = null
+    deleteGalleryModal()
+}
+function createGalleryModal(projectsList) {
+    let portfolio = document.querySelector('.allProjects')
+    projectsList.forEach((project) => {
+        createMarkup('img', portfolio, { src: project.imageUrl, alt: project.title });
+        createMarkup('i', portfolio,{class:'fa-solid fa-trash-can', style : 'color: #000000'})
+    })
+}
+
+
+function deleteGalleryModal() {
+    let portfolio = document.querySelector('.allProjects')
+    portfolio.innerHTML = ''
+}
+
+/******** MODAL 2*******/
+const changeModal = function (e) {
+    e.preventDefault()
+    const target = document.querySelector(e.target.getAttribute('href'))
+    target.style.display = null;
+    document.getElementById('modal1').style.display = "none";
+    target.removeAttribute('aria-hidden')
+    target.setAttribute('aria-modal', 'true')
+    modal = target
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.close').addEventListener('click', closeModal)
+    modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+}
+
+let buttonModal2 = document.getElementById('ButtonAdd')
+buttonModal2.addEventListener('click', changeModal)
+
+
+
+
+
+
 getProject()
 getCategories()
+
+//post -> ok add projects list, reset gallery
+// delete -> supp projet dans l'array projectsList puis reset gallery

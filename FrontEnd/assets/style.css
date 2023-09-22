@@ -421,7 +421,7 @@ hr {
 	color: #B3B3B3;
 	width: 420px;
 	border: 1px solid #B3B3B3;
-	position: absolute;
+	margin-bottom: 20px;
 }
 .allProjects {
 	display: flex;
@@ -433,4 +433,7 @@ hr {
 
     width: 76px;
     height: 102px;
+}
+#ButtonAdd {
+	margin: 20px;
 }

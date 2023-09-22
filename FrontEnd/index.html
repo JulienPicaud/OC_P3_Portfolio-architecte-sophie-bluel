@@ -51,8 +51,8 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
-			<!-- MODAL -->
-			
+			<!-- MODAL1 -->
+
 			<a href="#modal1" class="boxModal">Modifier</a>
 			<aside id="modal1" class="modal" aria-hidden="true" style="display:none">
 				<div class="modal-wrapper modalPropagation">
@@ -63,10 +63,26 @@
 
 					<hr>
 
-					<input type="submit" value="Ajouter une photo">
+					<a href="#modal2" class="boxModal" Id="ButtonAdd">Ajouter une photo</a>
 				</div>
 			</aside>
-			<!-- FIN MODAL -->
+			<!-- FIN MODAL1 -->
+
+			<!-- MODAL2 -->
+			<aside id="modal2" class="modal" aria-hidden="true" style="display:none">
+				<div class="modal-wrapper modalPropagation">
+					<a href="#modal1" class="boxModal">Retour (fleche)</a>
+					<button class="close">&times;</button>
+					<p>Ajout Photo</p>
+					<div class="allProjects">
+					</div>
+
+					<hr>
+
+					<input type="submit" value="Valider">
+				</div>
+			</aside>
+			<!-- FIN MODAL2 -->
 
 			<div id="filtersButton">
 			</div>
@@ -131,7 +147,7 @@
 			</form>
 		</section>
 
-		<script src="assets/Modal.js"></script>
+		<!-- <script src="assets/Modal.js"></script> -->
 		<script src="assets/Filters.js"></script>
 
 
