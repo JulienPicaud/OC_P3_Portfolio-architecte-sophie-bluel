@@ -21,9 +21,6 @@ connectButton.addEventListener('click', (e) => {
     };
     fetch("http://localhost:5678/api/users/login", requestOptions)
         .then(response => {
-            //            if (!response.ok) {
-            //                throw new Error("")
-            //            } faut il le garder 
             console.log(response.ok)
             if (response.ok === true) {
 
@@ -49,9 +46,7 @@ function homeConnect() {
     let connectBanner = document.getElementById('blackBanner');
     connectBanner.style.display = null;
 }
-// result -> result.body.token (a voir)
 
-// js.style.displaynone
 
 
 

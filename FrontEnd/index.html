@@ -74,12 +74,21 @@
 					<a href="#modal1" class="boxModal">Retour (fleche)</a>
 					<button class="close">&times;</button>
 					<p>Ajout Photo</p>
-					<div class="allProjects">
+					<div class="greyBlock">
+						<label for="addPicture">+ Ajouter photo</label>
+							<input type="file" id="addPicture" style="visibility: hidden;">
+							<p>jpg, png: 4mo max</p>
+					</div>
+					<div>
+						<label for="title" class="label">Titre</label>
+						<input type="text" class="labelModal" id="title" name="title">
+					</div>
+					<div id="listCategoriesModale2">
 					</div>
 
 					<hr>
 
-					<input type="submit" value="Valider">
+					<input type="submit" value="Valider" disabled>
 				</div>
 			</aside>
 			<!-- FIN MODAL2 -->
@@ -147,7 +156,6 @@
 			</form>
 		</section>
 
-		<!-- <script src="assets/Modal.js"></script> -->
 		<script src="assets/Filters.js"></script>
 
 

@@ -4,17 +4,19 @@ let requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-/**
- * get all pictures and display
- */
+let modal = null;
+let monToken = localStorage.getItem("token");
+console.log(monToken)
+
+/*** get all pictures and display ***/
 function getProject() {
     fetch("http://localhost:5678/api/works", requestOptions)
         .then(response => response.json())
         .then((result) => {
             projectsList = result
+            console.log(projectsList)
             let buttonModal = document.querySelector('.boxModal')
             buttonModal.addEventListener('click', openModal)
-
             createGalleryModal(projectsList)
             resetGallery(projectsList)
         })
@@ -22,9 +24,7 @@ function getProject() {
 }
 
 
-/**
- * get categories and categories's data
- */
+/*** get categories and categories's data ***/
 function getCategories() {
     fetch("http://localhost:5678/api/categories", requestOptions)
         .then(response => response.json())
@@ -33,6 +33,9 @@ function getCategories() {
             categoriesList = monSet
             createButton(monSet)
 
+            //passe de la modale 1 à 2
+            let buttonModal2 = document.getElementById('ButtonAdd')
+            buttonModal2.addEventListener('click', changeModal)
         })
         .catch(error => console.log('error', error))
 }
@@ -52,28 +55,7 @@ function resetGallery() {
     deleteGallery()
     createGallery(projectsList)
 }
-/**Requete Delete 1 project gallery by using ID */
 
-let formdata = new FormData();
-formdata.append("email", "string");
-formdata.append("password", "string");
-
-let requestOptionsDelete = {
-    method: 'DELETE',
-    body: formdata,
-    redirect: 'follow'
-};
-
-function deleteProject() {
-    fetch("http://localhost:5678/api/works/{id}", requestOptionsDelete)
-        .then(response => response.json())
-        .then(result => console.log(result))
-        document.querySelector('.fa-solid fa-trash-can').addEventListener('click', deletePicture)
-        .catch(error => console.log('error', error));
-}
-//Const deletePicture = function(e) {
-//
-//}
 
 // On recré la div gallery sur l'index.html
 function createGallery(projectsList) {
@@ -124,9 +106,7 @@ function createMarkup(tag, parent, attributes = {}, content = '') {
     return htmlElement;
 }
 
-/**
- * clean the last gallery and display filtered elements
- */
+/*** clean the last gallery and display filtered elements ***/
 function filterObject(categoriesList) {
     let gallery = document.querySelector('.gallery');
     gallery.innerHTML = ''
@@ -146,7 +126,6 @@ function filterObject(categoriesList) {
 const stopPropagation = function (e) {
     e.stopPropagation()
 }
-let modal = null;
 
 const openModal = function (e) {
     e.preventDefault()
@@ -159,8 +138,6 @@ const openModal = function (e) {
     modal.querySelector('.close').addEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
     getProject()
-
-
 }
 
 const closeModal = function (e) {
@@ -175,13 +152,42 @@ const closeModal = function (e) {
     modal = null
     deleteGalleryModal()
 }
+
 function createGalleryModal(projectsList) {
     let portfolio = document.querySelector('.allProjects')
     projectsList.forEach((project) => {
-        createMarkup('img', portfolio, { src: project.imageUrl, alt: project.title });
-        createMarkup('i', portfolio,{class:'fa-solid fa-trash-can', style : 'color: #000000'})
+        const divTrash = createMarkup('div', portfolio, { class: 'bins', Id: project.id })
+        createMarkup('img', divTrash, { src: project.imageUrl, alt: project.title });
+        createMarkup('i', divTrash, { class: 'fa-solid fa-trash-can', style: 'color: #000000' })
+
+        divTrash.addEventListener("click", async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const idProject = divTrash.id;
+            console.log(divTrash);
+            let response = await fetch(
+                `http://localhost:5678/api/works/${idProject}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        accept: "*/*",
+                        Authorization: `Bearer ${monToken}`,
+                    },
+                }
+            );
+            if (response.ok) {
+                return false;
+                // if HTTP-status is 200-299
+                //alert("Photo supprimé avec succes");
+                // obtenir le corps de réponse (la méthode expliquée ci-dessous)
+            } else {
+                alert("Echec de suppression");
+            }
+        });
+        //document.querySelector('.fa-solid.fa-trash-can').addEventListener('click', deletePicture)
     })
 }
+
 
 
 function deleteGalleryModal() {
@@ -201,12 +207,33 @@ const changeModal = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.close').addEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+    const listCategoriesModale2 = document.getElementById('listCategoriesModale2')
+    createMarkup('label', listCategoriesModale2, { for: 'listCategorie', class: 'label' }, ['Catégorie'])
+    const optionCategories = createMarkup('select', listCategoriesModale2, { id: 'listCategorie', name: 'listCategorie' })
+    categoriesList.forEach((project) => {
+        createMarkup('option', optionCategories, { value: project.name }, [project.name])
+    })
 }
 
-let buttonModal2 = document.getElementById('ButtonAdd')
-buttonModal2.addEventListener('click', changeModal)
+/*** TEST REQUEST FETCH POST ADD PROJECT ***/
 
+//const answer = fetch('http://localhost:5678/api/works/', {
+//    method: 'POST',
+//    headers: { 'Authorization': `Bearer ${monToken}` },
+//    body: formData
+//})
+//    .then(response => response.text())
+//    .then(result => console.log(result))
+//    .catch(error => console.log('error', error));
+//
+//var formdata = new FormData();
+//formdata.append("image", "string($binary)");
+//formdata.append("title", "string");
+//formdata.append("category", "integer($int64)");
 
+// 1. Pointer les 3 élements du modal 2
+// 2. Les stocker dans formdata (comment ?)
+// 3. faire la requête fetch post.
 
 
 
@@ -215,4 +242,4 @@ getProject()
 getCategories()
 
 //post -> ok add projects list, reset gallery
-// delete -> supp projet dans l'array projectsList puis reset gallery
+//Galerie modal qui se duplique à l'actualisation
