@@ -26,7 +26,6 @@ connectButton.addEventListener('click', (e) => {
 
                 window.alert('Connexion réussie!');
                 window.location.href = "index.html";
-                //homeConnect()
             }
             else {
                 window.alert('Login ou mot de passe incorrect')
@@ -42,10 +41,7 @@ connectButton.addEventListener('click', (e) => {
         })
 })
 
-function homeConnect() {
-    let connectBanner = document.getElementById('blackBanner');
-    connectBanner.style.display = null;
-}
+
 
 
 

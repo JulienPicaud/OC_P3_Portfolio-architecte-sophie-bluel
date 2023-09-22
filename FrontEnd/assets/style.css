@@ -320,10 +320,19 @@ input[type="button"]:hover {
 }
 
 a {
-	text-decoration: none;
 	color: #000000;
 }
+#login{
+	text-decoration: none;
+}
+#loginBis{
+	text-decoration:none;
+	font-weight: bold;
 
+}
+#logout{
+	text-decoration: none;
+}
 input.Connect {
 	text-decoration: none;
 	color: white;
@@ -358,12 +367,12 @@ input.Connect {
 }
 
 #login label {
-	margin: auto;
 	margin-top: 40px;
+	margin-bottom:10px;
 }
 
-.connect {
-	text-align: center !important;
+#mdpOublie{
+	text-align: center;
 }
 
 .blackBloc {
@@ -411,7 +420,7 @@ input.Connect {
 .modal-wrapper {
 	overflow: auto;
 	background-color: #FFF;
-	width: 600px;
+	width: 500px;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vw - 20px);
 	padding: 20px;
@@ -428,6 +437,7 @@ hr {
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
+	margin: 0px 20px;
 }
 .allProjects img {
 
@@ -439,4 +449,22 @@ hr {
 }
 .bins{
 	color:black;
+}
+.containerH2{
+	display:flex;
+	justify-content: center;
+}
+#iconPen {
+	margin-left: 30px;
+}
+#modifyButton{
+	margin-left: 5px;
+}
+.close{
+margin-left: 470px;
+}
+.titleModal{
+	font-size: 26px;
+	text-align: center;
+	margin-bottom: 40px;
 }

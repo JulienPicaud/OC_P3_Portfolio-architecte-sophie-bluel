@@ -6,7 +6,6 @@ let requestOptions = {
 };
 let modal = null;
 let monToken = localStorage.getItem("token");
-console.log(monToken)
 
 /*** get all pictures and display ***/
 function getProject() {
@@ -36,6 +35,8 @@ function getCategories() {
             //passe de la modale 1 à 2
             let buttonModal2 = document.getElementById('ButtonAdd')
             buttonModal2.addEventListener('click', changeModal)
+            let buttonModal3 = document.getElementById('backLeft')
+            buttonModal3.addEventListener('click', changeModal2)
         })
         .catch(error => console.log('error', error))
 }
@@ -151,6 +152,7 @@ const closeModal = function (e) {
     modal.querySelector('.modalPropagation').removeEventListener('click', stopPropagation)
     modal = null
     deleteGalleryModal()
+    deleteListModal()
 }
 
 function createGalleryModal(projectsList) {
@@ -194,7 +196,9 @@ function deleteGalleryModal() {
     let portfolio = document.querySelector('.allProjects')
     portfolio.innerHTML = ''
 }
-
+function deleteListModal(){
+    document.getElementById('listCategoriesModale2').innerHTML = ''
+}
 /******** MODAL 2*******/
 const changeModal = function (e) {
     e.preventDefault()
@@ -213,6 +217,17 @@ const changeModal = function (e) {
     categoriesList.forEach((project) => {
         createMarkup('option', optionCategories, { value: project.name }, [project.name])
     })
+}
+//Test pas sur que changemodal2 marche
+const changeModal2 = function (e) {
+    e.preventDefault()
+    const target = document.getElementById('modal1')
+    target.style.display = null;
+    document.getElementById('modal2').style.display = 'none';
+    modal = target
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.close').addEventListener('click', closeModal)
+    modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
 }
 
 /*** TEST REQUEST FETCH POST ADD PROJECT ***/
@@ -236,6 +251,38 @@ const changeModal = function (e) {
 // 3. faire la requête fetch post.
 
 
+
+/** Set Up bannière noir, bouton modifier, (mode editeur) **/
+console.log(monToken)
+if (monToken === null){}
+else{
+    document.getElementById('logout').style.display = null;
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('modifyButton').style.display = null;
+    document.getElementById('blackBanner').style.display = null;
+}
+/** Deconnexion **/
+
+document.getElementById('logout').addEventListener('click', function (e) {
+    localStorage.clear()
+    monToken = localStorage
+    console.log(localStorage)
+    document.getElementById('logout').style.display = 'none';
+    window.location.reload()
+    document.getElementById('login').style.display = null;
+    document.getElementById('modifyButton').style.display = 'none';
+})
+/**Bouton retour modale 2 */ //PB FERMUTRE MODAL1 APRES ETRE RETOURNE
+//document.getElementById('backLeft').addEventListener('click', function (e){
+//    e.preventDefault()
+//    document.getElementById('modal2').style.display='none';
+//    deleteListModal()
+//    document.getElementById('modal1').style.display=null;
+//    modal.addEventListener('click', closeModal)
+//    modal.querySelector('.close').addEventListener('click', closeModal)
+//    modal = null
+//    document.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+//})
 
 
 getProject()

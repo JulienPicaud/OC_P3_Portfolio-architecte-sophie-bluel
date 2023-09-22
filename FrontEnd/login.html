@@ -16,12 +16,12 @@
 <body>
     <header>
         
-        <h1><a href=index.html> Sophie Bluel</a> <span>Architecte d'intérieur</span></h1>
+        <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
         <nav>
             <ul>
                 <li>projets</li>
                 <li>contact</li>
-                <li><a href=login.html>login</a></li>
+                <li><a href=login.html id="loginBis">login</a></li>
                 <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
         </nav>
@@ -31,12 +31,12 @@
         <section id="login">
             <h2>Log in</h2>
             <form action="*" method="post" id="loginForm">
-                <label for="email">E-mail</label>
+                <label class="labelLogin" for="email">E-mail</label>
                 <input type="email" name="email" id="email" class="inputLog" required>
-                <label for="password">Mot de passe</label>
+                <label class="labelLogin" for="password">Mot de passe</label>
                 <input class="inputLog" type="password" value="" id="password" required> 
                 <input value="Se connecter" type="submit" id="connectButton">
-                <p class="Connect"> <a href="">Mot de passe oublié</a></p>
+                <p class="Connect"> <a href="" id="mdpOublie">Mot de passe oublié</a></p>
             </form>
         </section>
         <script src="assets/Login.js"></script>

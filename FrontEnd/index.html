@@ -28,7 +28,8 @@
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li><a href=login.html>login</a></li>
+				<li><a href=login.html id="login">login</a></li>
+				<li><a href="#" id="logout" style="display: none;">logout</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -50,14 +51,18 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
-			<!-- MODAL1 -->
-
-			<a href="#modal1" class="boxModal">Modifier</a>
+			<div class="containerH2">
+				<h2>Mes Projets</h2>
+				<!-- MODAL1 -->
+				<i id="iconPen" class="fa-solid fa-pen-to-square"></i>
+				<a href="#modal1" id="modifyButton" class="boxModal" style="display:none">Modifier</a>
+			</div>
 			<aside id="modal1" class="modal" aria-hidden="true" style="display:none">
 				<div class="modal-wrapper modalPropagation">
-					<button class="close">&times;</button>
-					<p>Galerie Photo</p>
+					<button class="close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+					<p class="titleModal">Galerie Photo</p>
 					<div class="allProjects">
 					</div>
 
@@ -71,13 +76,15 @@
 			<!-- MODAL2 -->
 			<aside id="modal2" class="modal" aria-hidden="true" style="display:none">
 				<div class="modal-wrapper modalPropagation">
-					<a href="#modal1" class="boxModal">Retour (fleche)</a>
-					<button class="close">&times;</button>
+					<a href="#modal1" id="backLeft" class="boxModal"><i  class="fa-solid fa-arrow-left"></i></a>
+					<button class="close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
 					<p>Ajout Photo</p>
 					<div class="greyBlock">
-						<label for="addPicture">+ Ajouter photo</label>
-							<input type="file" id="addPicture" style="visibility: hidden;">
-							<p>jpg, png: 4mo max</p>
+						<label for="addPicture" class="titleModal">+ Ajouter photo</label>
+						<input type="file" id="addPicture" style="visibility: hidden;">
+						<p>jpg, png: 4mo max</p>
 					</div>
 					<div>
 						<label for="title" class="label">Titre</label>
