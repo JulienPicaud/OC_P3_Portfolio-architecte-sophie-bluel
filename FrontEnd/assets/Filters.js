@@ -69,10 +69,7 @@ function createGallery(projectsList) {
     })
 }
 
-/**
- * creates the buttons according to fetched categories
- * @param {set} categoriesList 
- */
+/** creates the buttons according to fetched categories **/
 
 function createButton(categoriesList) {
     let filtersButton = document.getElementById('filtersButton');
@@ -159,10 +156,10 @@ function createGalleryModal(projectsList) {
     let portfolio = document.querySelector('.allProjects')
     projectsList.forEach((project) => {
         const divTrash = createMarkup('div', portfolio, { class: 'bins', Id: project.id })
-        createMarkup('img', divTrash, { src: project.imageUrl, alt: project.title });
-        createMarkup('i', divTrash, { class: 'fa-solid fa-trash-can', style: 'color: #000000' })
+        createMarkup('img', divTrash, { src: project.imageUrl, alt: project.title, });
+        const poubs = createMarkup('i', divTrash, { class: 'fa-solid fa-trash-can', style: 'color: #000000', })
 
-        divTrash.addEventListener("click", async (e) => {
+        poubs.addEventListener("click", async (e) => {
             e.preventDefault();
             e.stopPropagation();
             const idProject = divTrash.id;
@@ -190,8 +187,6 @@ function createGalleryModal(projectsList) {
     })
 }
 
-
-
 function deleteGalleryModal() {
     let portfolio = document.querySelector('.allProjects')
     portfolio.innerHTML = ''
@@ -212,8 +207,9 @@ const changeModal = function (e) {
     modal.querySelector('.close').addEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
     const listCategoriesModale2 = document.getElementById('listCategoriesModale2')
-    createMarkup('label', listCategoriesModale2, { for: 'listCategorie', class: 'label' }, ['Catégorie'])
+    createMarkup('label', listCategoriesModale2, { for: 'listCategorie', class: 'labelModale2' }, ['Catégorie'])
     const optionCategories = createMarkup('select', listCategoriesModale2, { id: 'listCategorie', name: 'listCategorie' })
+    createMarkup('option',optionCategories, {value: ""})
     categoriesList.forEach((project) => {
         createMarkup('option', optionCategories, { value: project.name }, [project.name])
     })
@@ -228,6 +224,7 @@ const changeModal2 = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.close').addEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+    deleteListModal()
 }
 
 /*** TEST REQUEST FETCH POST ADD PROJECT ***/
@@ -260,6 +257,7 @@ else{
     document.getElementById('login').style.display = 'none';
     document.getElementById('modifyButton').style.display = null;
     document.getElementById('blackBanner').style.display = null;
+    document.getElementById('iconPen').style.display = null;
 }
 /** Deconnexion **/
 
@@ -290,3 +288,4 @@ getCategories()
 
 //post -> ok add projects list, reset gallery
 //Galerie modal qui se duplique à l'actualisation
+// remplacer database.sqlite pour reset ma gallery

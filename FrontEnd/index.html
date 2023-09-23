@@ -54,12 +54,12 @@
 			<div class="containerH2">
 				<h2>Mes Projets</h2>
 				<!-- MODAL1 -->
-				<i id="iconPen" class="fa-solid fa-pen-to-square"></i>
+				<i id="iconPen" class="fa-solid fa-pen-to-square" style="display: none;"></i>
 				<a href="#modal1" id="modifyButton" class="boxModal" style="display:none">Modifier</a>
 			</div>
 			<aside id="modal1" class="modal" aria-hidden="true" style="display:none">
 				<div class="modal-wrapper modalPropagation">
-					<button class="close">
+					<button class="close" type="button">
 						<i class="fa-solid fa-xmark"></i>
 					</button>
 					<p class="titleModal">Galerie Photo</p>
@@ -67,8 +67,8 @@
 					</div>
 
 					<hr>
-
-					<a href="#modal2" class="boxModal" Id="ButtonAdd">Ajouter une photo</a>
+					<input type="submit" href="#modal2" class="boxModal" Id="ButtonAdd"
+						value="Ajouter une photo"></input>
 				</div>
 			</aside>
 			<!-- FIN MODAL1 -->
@@ -76,26 +76,30 @@
 			<!-- MODAL2 -->
 			<aside id="modal2" class="modal" aria-hidden="true" style="display:none">
 				<div class="modal-wrapper modalPropagation">
-					<a href="#modal1" id="backLeft" class="boxModal"><i  class="fa-solid fa-arrow-left"></i></a>
-					<button class="close">
-						<i class="fa-solid fa-xmark"></i>
-					</button>
-					<p>Ajout Photo</p>
-					<div class="greyBlock">
-						<label for="addPicture" class="titleModal">+ Ajouter photo</label>
-						<input type="file" id="addPicture" style="visibility: hidden;">
-						<p>jpg, png: 4mo max</p>
+					<div class="headModal2">
+						<a href="#modal1" id="backLeft" class="boxModal"><i class="fa-solid fa-arrow-left"></i></a>
+						<button class="close">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
 					</div>
-					<div>
-						<label for="title" class="label">Titre</label>
-						<input type="text" class="labelModal" id="title" name="title">
-					</div>
-					<div id="listCategoriesModale2">
-					</div>
+					<p class="titleModal">Ajout Photo</p>
+					<form action="*" method="post" id="modale2form">
 
+						<div class="greyBlock">
+							<label for="addPicture" class="titleModal">+ Ajouter photo</label>
+							<input type="file" id="addPicture" style="visibility: hidden;">
+							<p>jpg, png: 4mo max</p>
+						</div>
+						<div class="blocModale2">
+							<label for="title" class="labelModale2">Titre</label>
+							<input type="text" class="labelModal" id="title" name="title">
+						</div>
+						<div class="blocModale2" id="listCategoriesModale2">
+						</div>
+					</form>
 					<hr>
 
-					<input type="submit" value="Valider" disabled>
+					<div id="validModale2"><input class="boxModal" type="submit" value="Valider"></div>
 				</div>
 			</aside>
 			<!-- FIN MODAL2 -->
