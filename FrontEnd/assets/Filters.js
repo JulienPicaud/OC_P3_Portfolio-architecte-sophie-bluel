@@ -157,7 +157,7 @@ function createGalleryModal(projectsList) {
     projectsList.forEach((project) => {
         const divTrash = createMarkup('div', portfolio, { class: 'bins', Id: project.id })
         createMarkup('img', divTrash, { src: project.imageUrl, alt: project.title, });
-        const poubs = createMarkup('i', divTrash, { class: 'fa-solid fa-trash-can', style: 'color: #000000', })
+        const poubs = createMarkup('i', divTrash, { class: 'fa-solid fa-trash-can', })
 
         poubs.addEventListener("click", async (e) => {
             e.preventDefault();
@@ -289,3 +289,4 @@ getCategories()
 //post -> ok add projects list, reset gallery
 //Galerie modal qui se duplique à l'actualisation
 // remplacer database.sqlite pour reset ma gallery
+// quand je supp les objets d'une categorie entiere, le filtre ne disparait pas
