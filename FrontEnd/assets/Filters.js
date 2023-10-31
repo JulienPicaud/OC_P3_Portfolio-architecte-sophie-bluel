@@ -7,13 +7,12 @@ let requestOptions = {
 let modal = null;
 let monToken = localStorage.getItem("token");
 
-/*** get all pictures and display ***/
+/*** get gallery and display ***/
 function getProject() {
     fetch("http://localhost:5678/api/works", requestOptions)
         .then(response => response.json())
         .then((result) => {
             projectsList = result
-            console.log(projectsList)
             let buttonModal = document.querySelector('.boxModal')
             buttonModal.addEventListener('click', openModal)
             createGalleryModal(projectsList)
@@ -21,7 +20,6 @@ function getProject() {
         })
         .catch(error => console.log('error', error))
 }
-
 
 /*** get categories and categories's data ***/
 function getCategories() {
@@ -41,24 +39,19 @@ function getCategories() {
         .catch(error => console.log('error', error))
 }
 
-/**
- * delete div .gallery
- */
+/*** delete div .gallery */
 function deleteGallery() {
     let gallery = document.querySelector('.gallery');
     gallery.remove();
 }
 
-/**
- * reset gallery
- */
+/*** reset gallery */
 function resetGallery() {
     deleteGallery()
     createGallery(projectsList)
 }
 
-
-// On recré la div gallery sur l'index.html
+/** Create gallery */
 function createGallery(projectsList) {
     let portfolio = document.getElementById('portfolio')
     let gallery = createMarkup('div', portfolio, { class: 'gallery' })
@@ -69,8 +62,7 @@ function createGallery(projectsList) {
     })
 }
 
-/** creates the buttons according to fetched categories **/
-
+/** creates filters according to fetched categories **/
 function createButton(categoriesList) {
     let filtersButton = document.getElementById('filtersButton');
     let resetButton = createMarkup('input', filtersButton, { value: 'Tous', type: 'button', class: 'button' })
@@ -120,11 +112,10 @@ function filterObject(categoriesList) {
 }
 
 /** Gère la modale 1**/
-
 const stopPropagation = function (e) {
     e.stopPropagation()
 }
-
+/** Open modal and set up option */
 const openModal = function (e) {
     e.preventDefault()
     const target = document.querySelector(e.target.getAttribute('href'))
@@ -137,7 +128,7 @@ const openModal = function (e) {
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
     getProject()
 }
-
+/** Close modal and clean it */
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault()
@@ -150,9 +141,12 @@ const closeModal = function (e) {
     modal = null
     deleteGalleryModal()
     deleteListModal()
+    cleanPreviewModal2()
 }
 
+/** Get projects for modal */
 function createGalleryModal(projectsList) {
+    document.getElementById('allProjects').innerHTML = ''
     let portfolio = document.querySelector('.allProjects')
     projectsList.forEach((project) => {
         const divTrash = createMarkup('div', portfolio, { class: 'bins', Id: project.id })
@@ -163,7 +157,6 @@ function createGalleryModal(projectsList) {
             e.preventDefault();
             e.stopPropagation();
             const idProject = divTrash.id;
-            console.log(divTrash);
             let response = await fetch(
                 `http://localhost:5678/api/works/${idProject}`,
                 {
@@ -187,16 +180,20 @@ function createGalleryModal(projectsList) {
     })
 }
 
+/** Clean modal gallery */
 function deleteGalleryModal() {
     let portfolio = document.querySelector('.allProjects')
     portfolio.innerHTML = ''
 }
-function deleteListModal(){
+
+function deleteListModal() {
     document.getElementById('listCategoriesModale2').innerHTML = ''
 }
-/******** MODAL 2*******/
+
+/******** Open Modale 2*******/
 const changeModal = function (e) {
     e.preventDefault()
+
     const target = document.querySelector(e.target.getAttribute('href'))
     target.style.display = null;
     document.getElementById('modal1').style.display = "none";
@@ -206,15 +203,19 @@ const changeModal = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.close').addEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+    document.getElementById('title').value = ''
     const listCategoriesModale2 = document.getElementById('listCategoriesModale2')
     createMarkup('label', listCategoriesModale2, { for: 'listCategorie', class: 'labelModale2' }, ['Catégorie'])
     const optionCategories = createMarkup('select', listCategoriesModale2, { id: 'listCategorie', name: 'listCategorie' })
-    createMarkup('option',optionCategories, {value: ""})
+    createMarkup('option', optionCategories, { value: "" })
     categoriesList.forEach((project) => {
-        createMarkup('option', optionCategories, { value: project.name }, [project.name])
+        createMarkup('option', optionCategories, { value: project.id }, [project.name])
     })
+    document.getElementById('buttonAddProject').setAttribute('style', "color:white; background-color: grey;")
+    document.getElementById('buttonAddProject').setAttribute('disabled','')
 }
-//Test pas sur que changemodal2 marche
+
+/**Back modale 2 to 1 */
 const changeModal2 = function (e) {
     e.preventDefault()
     const target = document.getElementById('modal1')
@@ -224,43 +225,23 @@ const changeModal2 = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.close').addEventListener('click', closeModal)
     modal.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
+    
+    cleanPreviewModal2()
     deleteListModal()
 }
 
-/*** TEST REQUEST FETCH POST ADD PROJECT ***/
-
-//const answer = fetch('http://localhost:5678/api/works/', {
-//    method: 'POST',
-//    headers: { 'Authorization': `Bearer ${monToken}` },
-//    body: formData
-//})
-//    .then(response => response.text())
-//    .then(result => console.log(result))
-//    .catch(error => console.log('error', error));
-//
-//var formdata = new FormData();
-//formdata.append("image", "string($binary)");
-//formdata.append("title", "string");
-//formdata.append("category", "integer($int64)");
-
-// 1. Pointer les 3 élements du modal 2
-// 2. Les stocker dans formdata (comment ?)
-// 3. faire la requête fetch post.
-
-
-
-/** Set Up bannière noir, bouton modifier, (mode editeur) **/
+/** Set Up page index quand utilisateur connecté **/
 console.log(monToken)
-if (monToken === null){}
-else{
+if (monToken === null) { }
+else {
     document.getElementById('logout').style.display = null;
     document.getElementById('login').style.display = 'none';
     document.getElementById('modifyButton').style.display = null;
     document.getElementById('blackBanner').style.display = null;
     document.getElementById('iconPen').style.display = null;
 }
-/** Deconnexion **/
 
+/** Deconnexion **/
 document.getElementById('logout').addEventListener('click', function (e) {
     localStorage.clear()
     monToken = localStorage
@@ -270,23 +251,89 @@ document.getElementById('logout').addEventListener('click', function (e) {
     document.getElementById('login').style.display = null;
     document.getElementById('modifyButton').style.display = 'none';
 })
-/**Bouton retour modale 2 */ //PB FERMUTRE MODAL1 APRES ETRE RETOURNE
-//document.getElementById('backLeft').addEventListener('click', function (e){
-//    e.preventDefault()
-//    document.getElementById('modal2').style.display='none';
-//    deleteListModal()
-//    document.getElementById('modal1').style.display=null;
-//    modal.addEventListener('click', closeModal)
-//    modal.querySelector('.close').addEventListener('click', closeModal)
-//    modal = null
-//    document.querySelector('.modalPropagation').addEventListener('click', stopPropagation)
-//})
-
 
 getProject()
 getCategories()
 
-//post -> ok add projects list, reset gallery
-//Galerie modal qui se duplique à l'actualisation
-// remplacer database.sqlite pour reset ma gallery
-// quand je supp les objets d'une categorie entiere, le filtre ne disparait pas
+
+/**Requete ajout de projet */
+
+document.getElementById('buttonAddProject').addEventListener('click', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const title = document.getElementById('title')
+    console.log(title.value)
+    const category = document.getElementById('listCategorie')
+    console.log(category.value)
+    let fileInput = document.getElementById('addPicture')
+    console.log(fileInput.files[0])
+
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${monToken}`);
+
+
+    let formdata = new FormData();
+    formdata.append("image", fileInput.files[0]);
+    formdata.append("title", title.value);
+    formdata.append("category", category.value);
+
+    let requestOptionsAdd = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("http://localhost:5678/api/works", requestOptionsAdd)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+})
+
+/**Prévisualisation de la photo modale 2 */
+function previewFiles() {
+    const preview = document.querySelector("#preview");
+    const files = document.querySelector("input[type=file]").files;
+
+    function readAndPreview(file) {
+        // On s'assure que `file.name` termine par
+        // une des extensions souhaitées
+        if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+            const reader = new FileReader();
+
+            reader.addEventListener(
+                "load",
+                () => {
+                    const image = new Image();
+                    image.height = 250;
+                    image.title = file.name;
+                    image.src = reader.result;
+                    image.id = "previewImgModal";
+                    preview.appendChild(image);
+
+                },
+                false,
+            );
+            reader.readAsDataURL(file);
+        }
+    }
+    if (files) {
+        Array.prototype.forEach.call(files, readAndPreview);
+        document.getElementById('tailleImg').style.display = "none";
+        document.getElementById('imgIcon').style.display = "none";
+        document.getElementById('labelAddPicture').style.display = "none";
+        document.getElementById('buttonAddProject').removeAttribute('style','')
+        document.getElementById('buttonAddProject').removeAttribute('disabled','')
+    }
+    else {
+    }
+
+}
+/**Clean prévisualisation photo modale 2 */
+function cleanPreviewModal2() {
+    document.getElementById('tailleImg').style.display = null;
+    document.getElementById('imgIcon').style.display = null;
+    document.getElementById('labelAddPicture').style.display = null;
+    document.querySelector("#preview").innerHTML = '';
+}
+

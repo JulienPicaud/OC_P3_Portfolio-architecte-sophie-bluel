@@ -58,12 +58,12 @@
 				<a href="#modal1" id="modifyButton" class="boxModal" style="display:none">Modifier</a>
 			</div>
 			<aside id="modal1" class="modal" aria-hidden="true" style="display:none">
-				<div class="modal-wrapper modalPropagation">
+				<div class="modal-wrapper modalPropagation" id="modalWrapper">
 					<button class="close" type="button">
 						<i class="fa-solid fa-xmark"></i>
 					</button>
 					<p class="titleModal">Galerie Photo</p>
-					<div class="allProjects">
+					<div class="allProjects" id="allProjects">
 					</div>
 
 					<hr>
@@ -85,11 +85,12 @@
 					<p class="titleModal">Ajout Photo</p>
 					<form action="*" method="post" id="modale2form">
 
-						<div class="greyBlock">
-							<i class="fa-regular fa-image" style="color: #b9c5cc;font-size: 100px;"></i>
-							<label for="addPicture" class="buttonGreyBlock">+ Ajouter photo</label>
-							<input type="file" id="addPicture" style="visibility: hidden;">
-							<p class="jpgPng">jpg, png: 4mo max</p>
+						<div id="greyBlock" class="greyBlock">
+							<i id="imgIcon" class="fa-regular fa-image" style="color: #b9c5cc;font-size: 100px;"></i>
+							<label for="addPicture" class="buttonGreyBlock" id="labelAddPicture">+ Ajouter photo</label>
+							<input type="file" id="addPicture" style="visibility: hidden;" onchange="previewFiles()" multiple>
+							<div id="preview"></div>
+							<p class="jpgPng" id="tailleImg">jpg, png: 4mo max</p>
 						</div>
 						<div class="blocModale2">
 							<label for="title" class="labelModale2">Titre</label>
@@ -100,7 +101,8 @@
 					</form>
 					<hr>
 
-					<div id="validModale2"><input class="boxModal" type="submit" value="Valider"></div>
+					<div id="validModale2"><input id="buttonAddProject"class="boxModal" type="button" value="Valider" style= "color:white; background-color: grey;">
+					</div>
 				</div>
 			</aside>
 			<!-- FIN MODAL2 -->

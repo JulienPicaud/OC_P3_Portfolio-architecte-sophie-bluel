@@ -307,7 +307,7 @@ input[type="button"] {
 	font-size: 15px;
 	color: #1D6154;
 	margin: 5px;
-	margin-bottom: 70px;
+	/* margin-bottom: 70px; */
 	padding: 7px 15px;
 }
 
@@ -319,6 +319,7 @@ input[type="button"]:hover {
 #filtersButton {
 	display: flex;
 	justify-content: center;
+	margin-bottom: 50px;
 }
 
 a:visited {
@@ -431,6 +432,7 @@ input.Connect {
 	max-height: calc(100vw - 20px);
 	padding: 20px 20px 10px 20px;
 	border-radius: 5px;
+	margin-bottom: -15px;
 }
 
 hr {
@@ -512,6 +514,9 @@ hr {
 	text-align: center;
 	justify-content: space-between;
 	border-radius: 5px;
+	height: 250px;
+	width: 100%;
+	padding-top:0px;
 }
 
 .blocModale2 label {
@@ -540,7 +545,6 @@ hr {
 }
 
 #modale2form div {
-	margin-top: 15px;
 	margin-bottom: 15px;
 }
 
@@ -560,4 +564,7 @@ hr {
 	margin-bottom: 15px;
 	margin-top: -15px;
 	font-weight: lighter;
+}
+#buttonAddProject{
+	width: 50%;
 }
