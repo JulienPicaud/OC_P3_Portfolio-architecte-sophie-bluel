@@ -35,8 +35,8 @@ connectButton.addEventListener('click', (e) => {
         .then(result => { //result est l'objet token
 
             console.log(result);
-            localStorage.setItem("userId", result.userId); //local storage a tendance à cumuler 
-            localStorage.setItem("token", result.token); //les infos au fur et a mesure des connexions
+            localStorage.setItem("userId", result.userId); 
+            localStorage.setItem("token", result.token);
             console.log(localStorage);
         })
 })

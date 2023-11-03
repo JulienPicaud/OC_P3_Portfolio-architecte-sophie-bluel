@@ -169,14 +169,10 @@ function createGalleryModal(projectsList) {
             );
             if (response.ok) {
                 return false;
-                // if HTTP-status is 200-299
-                //alert("Photo supprimé avec succes");
-                // obtenir le corps de réponse (la méthode expliquée ci-dessous)
             } else {
                 alert("Echec de suppression");
             }
         });
-        //document.querySelector('.fa-solid.fa-trash-can').addEventListener('click', deletePicture)
     })
 }
 
@@ -296,8 +292,7 @@ function previewFiles() {
     const files = document.querySelector("input[type=file]").files;
 
     function readAndPreview(file) {
-        // On s'assure que `file.name` termine par
-        // une des extensions souhaitées
+
         if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
             const reader = new FileReader();
 
